@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WhereMyBike?</string>
+    <string name="textView_stalling">Stalling</string>
+    <string name="textView_rij">Rij</string>
+    <string name="textView_nummer">Nummer</string>
+    <string name="button_set">Set</string>
+</resources>
