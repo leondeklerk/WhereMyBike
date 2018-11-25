@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="appAttrs">
+        <attr name="buttonBackground" format="color"/>
+        <attr name="rippleColor" format="color"/>
+    </declare-styleable>
+</resources>
