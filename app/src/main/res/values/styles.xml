@@ -1,8 +1,5 @@
 <resources>
-
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">#212121</item>
         <item name="colorPrimaryDark">#000000</item>
         <item name="colorAccent">#E53935</item>
@@ -11,4 +8,9 @@
         <item name="rippleColor">#323232</item>
     </style>
 
+    <style name="AlertDialogTheme_dark" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">#212121</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textAlignment">center</item>
+    </style>
 </resources>
