@@ -1,58 +1,78 @@
 package com.leondeklerk.wheremybike;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
 
-import java.util.Objects;
-import java.util.prefs.Preferences;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     Button btnSet;
     EditText edTxtS, edTxtR, edTxtN;
-    SharedPreferences prefences;
-
+    SharedPreferences preferences;
+    ListView notificationList;
+    List<String> arrayList;
+    Set<String> set;
+    Set<String> setTest = new TreeSet<>();
+    public ArrayAdapter<String> adapterNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        prefences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         edTxtS = findViewById(R.id.editText_stalling);
         edTxtR = findViewById(R.id.editText_rij);
         edTxtN = findViewById(R.id.editText_nummer);
         btnSet = findViewById(R.id.button);
+        notificationList = findViewById(R.id.not_list);
+        notificationList.setOnItemClickListener(this);
 
         btnSet.setOnClickListener(this);
 
         edTxtS.setText(getValue("pref_stalling"));
         edTxtR.setText(getValue("pref_rij"));
         edTxtN.setText(getValue("pref_nummer"));
+        setList(this);
     }
 
     @Override
     public void onClick(View view) {
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-        if(view == btnSet){
-            prefences.edit().putInt("pref_stalling", getSetValue(edTxtS))
-                    .putInt("pref_rij", getSetValue(edTxtR))
-                    .putInt("pref_nummer", getSetValue(edTxtN))
-                    .apply();
-        }
+        int stalling = getSetValue(edTxtS);
+        int rij = getSetValue(edTxtR);
+        int nummer = getSetValue(edTxtN);
+        set = preferences.getStringSet("notification_array", setTest);
+        set.add("(" + stalling + " - " + rij + " - " + nummer + ") - " + df.format(now.getTime()));
+        preferences.edit().putInt("pref_stalling", stalling)
+                .putInt("pref_rij", rij)
+                .putInt("pref_nummer", nummer)
+                .putStringSet("notification_array", set)
+                .apply();
 
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        setList(this);
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         assert imm != null;
         imm.hideSoftInputFromWindow(edTxtN.getWindowToken(), 0);
 
@@ -61,21 +81,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         edTxtN.clearFocus();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        prefences.edit().putInt("pref_stalling", getSetValue(edTxtS))
-                .putInt("pref_rij", getSetValue(edTxtR))
-                .putInt("pref_nummer", getSetValue(edTxtN))
-                .apply();
+    public String getValue(String prefTag) {
+        return String.valueOf(preferences.getInt(prefTag, 1));
     }
 
-    public String getValue(String prefTag){
-        return String.valueOf(prefences.getInt(prefTag, 1));
-    }
-
-    public int getSetValue(EditText editText){
-        if((editText.getText().toString().equals(""))){
+    public int getSetValue(EditText editText) {
+        if ((editText.getText().toString().equals(""))) {
             editText.setText(String.valueOf(1));
             return 1;
         }
@@ -83,4 +94,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return Integer.parseInt(editText.getText().toString());
     }
 
+    public void setList(Context context) {
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        set = preferences.getStringSet("notification_array", setTest);
+        arrayList = new ArrayList<>(set);
+        adapterNotification = new ArrayAdapter<>(context, R.layout.list_item, android.R.id.text1, arrayList);
+        notificationList.setAdapter(adapterNotification);
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this, R.style.AlertDialogTheme_dark);
+        alertBuilder.setMessage("Do you want to delete this item?").setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                String givenDateString = notificationList.getItemAtPosition(i).toString();
+                set = preferences.getStringSet("notification_array", setTest);
+                set.remove(givenDateString);
+                preferences.edit().putStringSet("notification_array", set).apply();
+                setList(getApplicationContext());
+            }
+        });
+        alertBuilder.show();
+    }
 }
