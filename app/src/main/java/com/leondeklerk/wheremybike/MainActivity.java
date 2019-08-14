@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   EditText edTxtS;
   EditText edTxtR;
   EditText edTxtN;
-  TextView locText;
   SharedPreferences preferences;
   ListView notificationList;
   List<String> arrayList;
@@ -91,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     edTxtR = findViewById(R.id.editText_rij);
     edTxtN = findViewById(R.id.editText_nummer);
     btnSet = findViewById(R.id.button);
-    locText = findViewById(R.id.location_text);
     notificationList = findViewById(R.id.not_list);
     notificationList.setOnItemClickListener(this);
 
@@ -100,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     edTxtS.setText(getValue("pref_stalling"));
     edTxtR.setText(getValue("pref_rij"));
     edTxtN.setText(getValue("pref_nummer"));
-    locText.setText(preferences.getString("location_string", ""));
     setList(this);
 
     button = findViewById(R.id.set_location_button);
@@ -161,7 +158,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         .append(") - ")
         .append(df.format(now.getTime()))
         .toString();
-    locText.setText(location);
     preferences.edit().putInt("pref_stalling", stalling)
         .putInt("pref_rij", rij)
         .putInt("pref_nummer", nummer)
