@@ -1,7 +1,15 @@
 <resources>
-    <string name="app_name">WhereMyBike?</string>
+    <string name="app_name">Fiets locatie</string>
     <string name="textView_stalling">Stalling</string>
     <string name="textView_rij">Rij</string>
     <string name="textView_nummer">Nummer</string>
-    <string name="button_set">Set</string>
+    <string name="button_set">Sla op</string>
+    <string name="permission_location">Toegang tot uw locatie is verreist voor het gebruik van de volledige functionaliteit van deze app</string>
+    <string name="dialog_ok">Oke</string>
+    <string name="dialog_cancel">Annuleer</string>
+    <string name="save_location">Stel locatie in</string>
+    <string name="dialog_remove_item_text">Wil je dit item verwijderen?</string>
+    <string name="no_location_snack">Er is geen locatie toegang gegeven</string>
+    <string name="wait_location_found_snack">Wacht tot uw locatie gevonden is</string>
+    <string name="theme_text">Thema</string>
 </resources>

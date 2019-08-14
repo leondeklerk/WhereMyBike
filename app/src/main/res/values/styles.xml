@@ -1,16 +1,18 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat">
-        <item name="colorPrimary">#212121</item>
-        <item name="colorPrimaryDark">#000000</item>
-        <item name="colorAccent">#E53935</item>
-        <item name="android:colorBackground">#303030</item>
-        <item name="buttonBackground">#424242</item>
-        <item name="rippleColor">#323232</item>
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">?attr/dialogBackground</item>
+        <item name="android:textColor">?attr/textColor</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColorPrimary">?attr/textColor</item>
     </style>
 
-    <style name="AlertDialogTheme_dark" parent="Theme.AppCompat.Dialog.Alert">
-        <item name="android:background">#212121</item>
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textAlignment">center</item>
+    <style name="Dark.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
