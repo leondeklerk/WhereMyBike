@@ -3,5 +3,9 @@
     <declare-styleable name="appAttrs">
         <attr name="buttonBackground" format="color"/>
         <attr name="rippleColor" format="color"/>
+        <attr name="themeButtonColor" format="color" />
+        <attr name="dialogBackground" format="color" />
+        <attr name="textColor" format="color" />
+        <attr name="buttonColor" format="color" />
     </declare-styleable>
 </resources>
