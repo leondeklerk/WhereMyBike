@@ -5,14 +5,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -122,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   }
 
   @Override
-  public boolean onOptionsItemSelected(@SuppressWarnings("NullableProblems") MenuItem item) {
+  public boolean onOptionsItemSelected(MenuItem item) {
     // Handle action bar item clicks here. The action bar will
     // automatically handle clicks on the Home/Up button, so long
     // as you specify a parent activity in AndroidManifest.xml.
@@ -206,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
    *
    * @param context the current context.
    */
-  private void setList(Context context) {
+  private void setList(final Context context) {
     set = preferences.getStringSet("notification_array", setTest);
     arrayList = new ArrayList<>(set);
     Collections.sort(arrayList, new StringComparator());
@@ -225,11 +228,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
           .append(df.format(calendar.getTime()))
           .toString());
     }
-    adapterNotification = new ArrayAdapter<>(context,
+    adapterNotification = new ArrayAdapter<String>(context,
         R.layout.list_item,
-        android.R.id.text1,
-        arrayList);
+        R.id.itemText,
+        arrayList) {
+      @SuppressWarnings("NullableProblems")
+      @Override
+      public View getView(int position, View convertView, ViewGroup parent) {
+        View row = super.getView(position, convertView, parent);
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = context.getTheme();
+        theme.resolveAttribute(R.attr.textColor, typedValue, true);
+        TextView tv = row.findViewById(R.id.itemText);
+        tv.setTextColor(typedValue.data);
+        return row;
+      }
+    };
     notificationList.setAdapter(adapterNotification);
+
 
   }
 
