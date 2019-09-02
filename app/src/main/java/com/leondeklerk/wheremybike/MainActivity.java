@@ -235,13 +235,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
       @SuppressWarnings("NullableProblems")
       @Override
       public View getView(int position, View convertView, ViewGroup parent) {
-        View row = super.getView(position, convertView, parent);
+        View item = super.getView(position, convertView, parent);
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = context.getTheme();
         theme.resolveAttribute(R.attr.textColor, typedValue, true);
-        TextView tv = row.findViewById(R.id.itemText);
+        TextView tv = item.findViewById(R.id.itemText);
         tv.setTextColor(typedValue.data);
-        return row;
+        return item;
       }
     };
     notificationList.setAdapter(adapterNotification);
