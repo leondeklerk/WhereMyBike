@@ -5,17 +5,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -228,25 +225,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
           .append(df.format(calendar.getTime()))
           .toString());
     }
-    adapterNotification = new ArrayAdapter<String>(context,
-        R.layout.list_item,
-        R.id.itemText,
-        arrayList) {
-      @SuppressWarnings("NullableProblems")
-      @Override
-      public View getView(int position, View convertView, ViewGroup parent) {
-        View item = super.getView(position, convertView, parent);
-        TypedValue typedValue = new TypedValue();
-        Resources.Theme theme = context.getTheme();
-        theme.resolveAttribute(R.attr.textColor, typedValue, true);
-        TextView tv = item.findViewById(R.id.itemText);
-        tv.setTextColor(typedValue.data);
-        return item;
-      }
-    };
+
+    if (dark) {
+      adapterNotification = new ArrayAdapter<>(context,
+          R.layout.list_item_dark,
+          R.id.item_dark,
+          arrayList);
+    } else {
+      adapterNotification = new ArrayAdapter<>(context,
+          R.layout.list_item_light,
+          R.id.item_light,
+          arrayList);
+    }
     notificationList.setAdapter(adapterNotification);
-
-
   }
 
   @Override
