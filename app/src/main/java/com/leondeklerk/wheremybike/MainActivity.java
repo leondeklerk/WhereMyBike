@@ -20,12 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -34,6 +29,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,6 +38,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 @SuppressWarnings("StringBufferReplaceableByString")
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
@@ -226,17 +229,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
           .toString());
     }
 
+      int layout;
+
     if (dark) {
-      adapterNotification = new ArrayAdapter<>(context,
-          R.layout.list_item_dark,
-          R.id.item_dark,
-          arrayList);
+        layout = R.layout.list_item_dark;
+
     } else {
-      adapterNotification = new ArrayAdapter<>(context,
-          R.layout.list_item_light,
-          R.id.item_light,
-          arrayList);
+        layout = R.layout.list_item_light;
+
     }
+      adapterNotification = new ArrayAdapter<>(context,
+          layout,
+          android.R.id.text1,
+          arrayList);
     notificationList.setAdapter(adapterNotification);
   }
 
