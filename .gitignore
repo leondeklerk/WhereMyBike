@@ -156,3 +156,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/windows,androidstudio
+/app/src/main/res/values/maps_api_key.xml
+/app/src/debug/res/values/maps_api_key.xml
