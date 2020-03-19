@@ -18,8 +18,8 @@ android {
         applicationId "com.leondeklerk.wheremybike"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 6
-        versionName '1.2.3'
+        versionCode 7
+        versionName '1.2.4'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         resValue "string", "MAPS_API_KEY", keysProperties['MAPS_API_KEY']
     }
