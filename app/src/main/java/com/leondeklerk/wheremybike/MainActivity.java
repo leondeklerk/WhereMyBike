@@ -301,12 +301,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
       map.setMyLocationEnabled(true);
       button.setOnClickListener(v -> {
         Location location = map.getMyLocation();
-        marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
-        marker.setVisible(true);
-        lat = (float) location.getLatitude();
-        lng = (float) location.getLongitude();
-        preferences.edit().putFloat("lat", lat).putFloat("lng", lng).apply();
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 19f));
+        //noinspection ConstantConditions
+        if (location != null) {
+          marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
+          marker.setVisible(true);
+          lat = (float) location.getLatitude();
+          lng = (float) location.getLongitude();
+          preferences.edit().putFloat("lat", lat).putFloat("lng", lng).apply();
+          map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 19f));
+        } else {
+          Snackbar snackbar = Snackbar.make(v.getRootView(), R.string.wait_location_found_snack,
+              Snackbar.LENGTH_LONG);
+          View view = snackbar.getView();
+          TextView text = view.findViewById(com.google.android.material.R.id.snackbar_text);
+          text.setTextColor(getResources().getColor(R.color.white, null));
+          snackbar.show();
+        }
       });
     }
   }
