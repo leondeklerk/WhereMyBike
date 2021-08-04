@@ -159,3 +159,5 @@ $RECYCLE.BIN/
 /app/src/main/res/values/maps_api_key.xml
 /app/src/debug/res/values/maps_api_key.xml
 /keys.properties
+
+.idea/**

@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   private void setList(final Context context) {
     set = preferences.getStringSet("notification_array", setTest);
     arrayList = new ArrayList<>(set);
-    Collections.sort(arrayList, new StringComparator());
+    arrayList.sort(new StringComparator());
     for (int i = 0; i < arrayList.size(); i++) {
       String[] entryParts = arrayList.get(i).split(" - ");
       Calendar calendar = Calendar.getInstance();
@@ -249,28 +249,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
     AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
     alertBuilder.setMessage(R.string.dialog_remove_item_text).setPositiveButton(R.string.dialog_ok,
-        new DialogInterface.OnClickListener() {
-          public void onClick(DialogInterface dialog, int id) {
-            boolean workaround = preferences.getBoolean("workaround_switch", false);
-            workaround = !workaround;
-            set = preferences.getStringSet("notification_array", setTest);
-            arrayList = new ArrayList<>(set);
-            Collections.sort(arrayList, new StringComparator());
-            Log.i("index", String.valueOf(i));
-            arrayList.remove(i);
-            set = new HashSet<>(arrayList);
-            preferences.edit()
-                .putStringSet("notification_array", set)
-                .putBoolean("workaround_switch", workaround)
-                .apply();
-            setList(getApplicationContext());
-          }
-        });
+            (dialog, id) -> {
+              boolean workaround = preferences.getBoolean("workaround_switch", false);
+              workaround = !workaround;
+              set = preferences.getStringSet("notification_array", setTest);
+              arrayList = new ArrayList<>(set);
+              arrayList.sort(new StringComparator());
+
+              arrayList.remove(i);
+              set = new HashSet<>(arrayList);
+              preferences.edit()
+                  .putStringSet("notification_array", set)
+                  .putBoolean("workaround_switch", workaround)
+                  .apply();
+              setList(getApplicationContext());
+            });
     alertBuilder.show();
   }
 
   @Override
-  public void onMapReady(GoogleMap map) {
+  public void onMapReady(@NonNull GoogleMap map) {
     this.map = map;
     if (lat == 0 || lng == 0) {
       this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(52.1326f, 5.2913f), 6f));
@@ -291,40 +289,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         != PackageManager.PERMISSION_GRANTED) {
       // Permission to access the location is missing.
       PermissionUtils.requestPermission(this);
-      button.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          Snackbar snackbar = Snackbar.make(v.getRootView(), R.string.no_location_snack,
-              Snackbar.LENGTH_LONG);
-          View view = snackbar.getView();
-          TextView text = view.findViewById(com.google.android.material.R.id.snackbar_text);
-          text.setTextColor(getResources().getColor(R.color.white, null));
-          snackbar.show();
-        }
+      button.setOnClickListener(v -> {
+        Snackbar snackbar = Snackbar.make(v.getRootView(), R.string.no_location_snack,
+            Snackbar.LENGTH_LONG);
+        View view = snackbar.getView();
+        TextView text = view.findViewById(com.google.android.material.R.id.snackbar_text);
+        text.setTextColor(getResources().getColor(R.color.white, null));
+        snackbar.show();
       });
     } else if (map != null) {
       map.setMyLocationEnabled(true);
-      button.setOnClickListener(new View.OnClickListener() {
-        @SuppressWarnings("deprecation")
-        @Override
-        public void onClick(View v) {
-          Location location = map.getMyLocation();
-          if (location != null) {
-            marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
-            marker.setVisible(true);
-            lat = (float) location.getLatitude();
-            lng = (float) location.getLongitude();
-            preferences.edit().putFloat("lat", lat).putFloat("lng", lng).apply();
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 19f));
-          } else {
-            Snackbar snackbar = Snackbar.make(v.getRootView(), R.string.wait_location_found_snack,
-                Snackbar.LENGTH_LONG);
-            View view = snackbar.getView();
-            TextView text = view.findViewById(com.google.android.material.R.id.snackbar_text);
-            text.setTextColor(getResources().getColor(R.color.white, null));
-            snackbar.show();
-          }
-        }
+      button.setOnClickListener(v -> {
+        Location location = map.getMyLocation();
+        marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
+        marker.setVisible(true);
+        lat = (float) location.getLatitude();
+        lng = (float) location.getLongitude();
+        preferences.edit().putFloat("lat", lat).putFloat("lng", lng).apply();
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 19f));
       });
     }
   }
@@ -332,6 +314,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                          @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     if (requestCode != 1) {
       return;
     }
