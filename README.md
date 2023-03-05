@@ -6,4 +6,4 @@ The last entered values are saved and put into a history log containing all prev
 
 Additionally provides the option to store a current location using Google Maps.
 
-Download the release version in the [Google Play Store](https://play.google.com/store/apps/details?id=com.leondeklerk.wheremybike)
+<a href='https://play.google.com/store/apps/details?id=com.leondeklerk.wheremybike&hl=en&gl=US&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img width=200 alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
