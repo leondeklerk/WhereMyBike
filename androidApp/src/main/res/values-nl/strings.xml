@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Fiets Locatie</string>
+    <string name="request_location_permission">"Locatie "</string>
+    <string name="permission">Toestamming</string>
+    <string name="location_permissions_are_required_for_the_map_to_function_please_grant_the_permission_if_you_want_to_use_this_feature">Locatie toestemming is vereist</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuleer</string>
+    <string name="add_location">Voeg locatie toe</string>
+    <string name="location">Locatie</string>
+    <string name="current_location">Huidige locatie</string>
+    <string name="expired">Verlopen</string>
+    <string name="expires">Verloopt</string>
+    <string name="rij">Rij</string>
+    <string name="nummer">Nummer</string>
+    <string name="select_expire_date">Selecteer vervaldatum</string>
+    <string name="expiration_date">Vervaldatum</string>
+    <string name="stalling">Stalling</string>
+    <string name="start_time">Start tijd</string>
+    <string name="overview">Overzicht</string>
+    <string name="map">Kaart</string>
+    <string name="save_current_location">Sla huidige locatie op</string>
+    <string name="settings">Instellingen</string>
+    <string name="validation_required">Dit veld is verplicht</string>
+    <string name="config">Instellingen</string>
+    <string name="default_expire_days_label">Standaard vervalt over x dagen</string>
+</resources>

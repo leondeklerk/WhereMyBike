@@ -1,0 +1,14 @@
+CREATE TABLE config(
+    key TEXT PRIMARY KEY NOT NULL,
+    value TEXT
+);
+
+INSERT INTO config(key, value) VALUES ("default_expire_days", "28");
+INSERT INTO config(key, value) VALUES ("maps_location", NULL);
+
+setConfig:
+INSERT OR REPLACE INTO config(key, value)
+VALUES (?,?);
+
+getConfig:
+SELECT * FROM config WHERE key LIKE ?;

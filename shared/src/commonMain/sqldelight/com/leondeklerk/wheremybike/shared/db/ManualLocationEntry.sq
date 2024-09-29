@@ -1,0 +1,15 @@
+CREATE TABLE manualLocationEntry  (
+    start_date INTEGER PRIMARY KEY NOT NULL,
+    expire_date INTEGER NOT NULL,
+    location TEXT NOT NULL
+);
+
+insert:
+INSERT INTO manualLocationEntry(start_date, expire_date, location)
+VALUES (?, ?, ?);
+
+selectLatest:
+SELECT * FROM manualLocationEntry ORDER BY start_date DESC LIMIT 1;
+
+selectAll:
+SELECT * FROM manualLocationEntry ORDER BY start_date;
