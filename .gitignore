@@ -11,6 +11,6 @@ xcuserdata
 secrets.properties
 *.aab
 release.properties
-*.png
+**/*.png
 .png
-androidApp\release
+androidApp/release/**
