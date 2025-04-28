@@ -24,4 +24,6 @@
     <string name="validation_required">Dit veld is verplicht</string>
     <string name="config">Instellingen</string>
     <string name="default_expire_days_label">Standaard vervalt over x dagen</string>
+    <string name="expires_on">Verloopt op</string>
+    <string name="save">Sla op</string>
 </resources>

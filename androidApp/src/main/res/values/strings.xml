@@ -23,4 +23,6 @@
     <string name="validation_required">This field is required</string>
     <string name="config">Settings</string>
     <string name="default_expire_days_label">Default expires after x days</string>
+    <string name="expires_on">Expires on</string>
+    <string name="save">Save</string>
 </resources>

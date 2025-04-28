@@ -68,7 +68,7 @@ fun TitleCardContent(expired: Boolean, location: ManualLocationEntry?) {
         ExpiredIcon(expired)
         Column {
             Text(
-                text = "Expires on",
+                text = stringResource(R.string.expires_on),
                 style = MaterialTheme.typography.titleMedium
             )
 

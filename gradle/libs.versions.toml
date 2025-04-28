@@ -1,6 +1,6 @@
 [versions]
 accompanistPermissions = "0.31.0-alpha"
-agp = "8.5.2"
+agp = "8.7.3"
 featureDeliveryKtx = "2.1.0"
 kmpViewmodel = "0.7.1"
 kotlin = "1.9.20"

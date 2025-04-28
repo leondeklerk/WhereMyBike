@@ -172,7 +172,7 @@ fun ManualLocationModal(
 //                        }
                     }
                 }) {
-                    Text("Save")
+                    Text(stringResource(R.string.save))
                 }
             }
         }
