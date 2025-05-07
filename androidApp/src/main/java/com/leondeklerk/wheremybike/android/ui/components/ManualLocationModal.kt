@@ -7,9 +7,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.AbsoluteCutCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -54,11 +57,7 @@ import androidx.compose.ui.unit.sp
 import com.leondeklerk.wheremybike.android.R
 import com.leondeklerk.wheremybike.formatDate
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import kotlinx.datetime.toLocalDateTime
-import java.text.SimpleDateFormat
-import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,8 +80,8 @@ fun ManualLocationModal(
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
         sheetState = sheetState,
-        windowInsets = BottomSheetDefaults.windowInsets,
-        modifier = Modifier.fillMaxSize(),
+        contentWindowInsets = { BottomSheetDefaults.windowInsets },
+        modifier = Modifier.fillMaxSize().padding(top = WindowInsets.safeDrawing.asPaddingValues().calculateTopPadding()),
         shape = AbsoluteCutCornerShape(0f)
     ) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
