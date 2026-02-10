@@ -81,7 +81,8 @@ fun ManualLocationModal(
         onDismissRequest = onDismissRequest,
         sheetState = sheetState,
         contentWindowInsets = { BottomSheetDefaults.windowInsets },
-        modifier = Modifier.fillMaxSize().padding(top = WindowInsets.safeDrawing.asPaddingValues().calculateTopPadding()),
+        modifier = Modifier
+            .fillMaxSize(),
         shape = AbsoluteCutCornerShape(0f)
     ) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
@@ -97,12 +98,12 @@ fun ManualLocationModal(
                 stalling,
                 onStallingChange,
                 stringResource(R.string.stalling),
-                modifier = Modifier.focusRequester(focusRequester)
+                modifier = Modifier.focusRequester(focusRequester),
             )
-            TextFieldRow(rij, onRijChange, stringResource(R.string.rij), maxLength = 2)
+            TextFieldRow(rij, onRijChange, stringResource(R.string.rij))
             TextFieldRow(
                 nummer, onNummerChange,
-                stringResource(R.string.nummer), imeAction = ImeAction.Done, maxLength = 3
+                stringResource(R.string.nummer), imeAction = ImeAction.Done
             )
 
             Row(
@@ -114,7 +115,10 @@ fun ManualLocationModal(
                     mutableStateOf(expiredDate.formatDate("dd-MM-yyyy"))
                 }
                 Column {
-                    Text(stringResource(R.string.expiration_date), modifier = Modifier.padding(bottom = 4.dp))
+                    Text(
+                        stringResource(R.string.expiration_date),
+                        modifier = Modifier.padding(bottom = 4.dp)
+                    )
 
                     OutlinedTextField(
                         value = expiredDateString,
@@ -160,17 +164,18 @@ fun ManualLocationModal(
             Spacer(Modifier.weight(1f))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 val keyboardController = LocalSoftwareKeyboardController.current
-                Button(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp), onClick = {
-                    keyboardController?.hide()
-                    onSubmitClick();
-                    coroutineScope.launch { sheetState.hide() }.invokeOnCompletion {
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp), onClick = {
+                        keyboardController?.hide()
+                        onSubmitClick();
+                        coroutineScope.launch { sheetState.hide() }.invokeOnCompletion {
 //                        if (!sheetState.isVisible) {
 //                            onSubmitClick()
 //                        }
-                    }
-                }) {
+                        }
+                    }) {
                     Text(stringResource(R.string.save))
                 }
             }
@@ -184,7 +189,8 @@ fun ExpiredDatePickerDialog(
     startDate: Instant, onDateSelected: (Instant?) -> Unit, onDismiss: () -> Unit
 ) {
     val datePickerState =
-        rememberDatePickerState(initialSelectedDateMillis = startDate.toEpochMilliseconds(),
+        rememberDatePickerState(
+            initialSelectedDateMillis = startDate.toEpochMilliseconds(),
             selectableDates = object : SelectableDates {
                 override fun isSelectableDate(utcTimeMillis: Long): Boolean {
                     return utcTimeMillis >= System.currentTimeMillis()
@@ -200,7 +206,7 @@ fun ExpiredDatePickerDialog(
         }
 
         ) {
-            Text(text = stringResource(R.string.ok))
+            Text(text = stringResource(android.R.string.ok))
         }
     }, dismissButton = {
         Button(onClick = {
@@ -221,9 +227,9 @@ fun TextFieldRow(
     onChange: (fieldValue: String) -> Unit,
     label: String,
     modifier: Modifier = Modifier,
-    keyboardType: KeyboardType = KeyboardType.Number,
+    keyboardType: KeyboardType = KeyboardType.Unspecified,
     imeAction: ImeAction = ImeAction.Next,
-    maxLength: Int = 1,
+    maxLength: Int = 25,
 ) {
 
     var value by remember { mutableStateOf(TextFieldValue(initialValue)) }
@@ -257,6 +263,7 @@ fun TextFieldRow(
                 isError = false,
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
+                    // Allow numbers initially and have toggle to switch to text available for users with alphanumeric stalling numbers
                     keyboardType = keyboardType, imeAction = imeAction
                 ),
                 textStyle = TextStyle.Default.copy(fontSize = 18.sp),

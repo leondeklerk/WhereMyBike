@@ -3,7 +3,6 @@
     <string name="request_location_permission">Request location permission</string>
     <string name="permission">Permission</string>
     <string name="location_permissions_are_required_for_the_map_to_function_please_grant_the_permission_if_you_want_to_use_this_feature">Location permissions are required for the map to function, please grant the permission if you want to use this feature.</string>
-    <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="add_location">Add location</string>
     <string name="location">Location</string>

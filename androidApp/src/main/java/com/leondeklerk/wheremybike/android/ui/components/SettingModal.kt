@@ -38,12 +38,18 @@ fun SettingModal(
                 NumericField(
                     value = internalValue,
                     onValueChange = {
-                        internalValue = it
-                        showError = it.isEmpty()
+                        if (it.isEmpty() || (it.toIntOrNull() != null && it.toInt() <= 365)) {
+                            internalValue = it
+                            showError = false
+                        } else {
+
+                            showError = true
+                        }
                     },
                     label = { Text(text = stringResource(R.string.default_expire_days_label)) },
-                    isError = showError
-                )
+                    isError = showError,
+
+                    )
             }
         },
         confirmButton = {
@@ -65,7 +71,7 @@ fun SettingModal(
                         showError = true
                     }
                 }) {
-                    Text(stringResource(R.string.ok))
+                    Text(stringResource(android.R.string.ok))
                 }
             }
         }

@@ -4,7 +4,6 @@
     <string name="request_location_permission">"Locatie "</string>
     <string name="permission">Toestamming</string>
     <string name="location_permissions_are_required_for_the_map_to_function_please_grant_the_permission_if_you_want_to_use_this_feature">Locatie toestemming is vereist</string>
-    <string name="ok">OK</string>
     <string name="cancel">Annuleer</string>
     <string name="add_location">Voeg locatie toe</string>
     <string name="location">Locatie</string>

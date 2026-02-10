@@ -1,25 +1,24 @@
 [versions]
-accompanistPermissions = "0.31.0-alpha"
-agp = "8.10.0"
+accompanistPermissions = "0.37.3"
+agp = "9.0.0"
 featureDeliveryKtx = "2.1.0"
-kmpViewmodel = "0.7.1"
-kotlin = "1.9.20"
-compose = "1.8.0"
-compose-compiler = "1.5.4"
-compose-material3 = "1.3.2"
-androidx-activityCompose = "1.10.1"
-kottage = "1.6.0"
-lifecycle-runtime-ktx = "2.8.7"
-compose-bom = "2025.04.01"
-navigation = "2.8.9"
+kmpViewmodel = "0.8.0"
+kotlin = "2.3.10"
+compose = "1.10.2"
+compose-material3 = "1.4.0"
+androidx-activityCompose = "1.12.3"
+kottage = "1.11.0"
+lifecycle-runtime-ktx = "2.10.0"
+compose-bom = "2026.01.01"
+navigation = "2.9.7"
 material-icons = "1.7.8"
-kotlinx-datetime = "0.5.0"
-maps-compose = "4.3.3"
-play-services-maps = "19.2.0"
-sqldelight = "2.0.1"
+kotlinx-datetime = "0.6.1"
+maps-compose = "8.1.0"
+play-services-maps = "20.0.0"
+sqldelight = "2.2.1"
 secrets = "2.0.1"
 playServicesLocation = "21.3.0"
-uiTextGoogleFonts = "1.8.0"
+uiTextGoogleFonts = "1.10.2"
 
 
 [libraries]
@@ -32,9 +31,7 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
-kottage = { module = "io.github.irgaly.kottage:kottage", version.ref = "kottage" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
@@ -59,8 +56,8 @@ androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
-kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+androidKmpLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 secretsGradle = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
+kotlinCompose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

@@ -14,7 +14,7 @@ fun createDatabase(driverFactory: DriverFactory): Database {
 }
 
 fun Database.insertLocation(location: ManualLocationEntry) {
-    return manualLocationEntryQueries.insert(
+    manualLocationEntryQueries.insert(
         location.startDate.toEpochMilliseconds(),
         location.expiredDate.toEpochMilliseconds(),
         location.location
@@ -50,5 +50,5 @@ fun Database.getConfig(key: String): String? {
 }
 
 fun Database.setConfig(key: String, value: String?) {
-    return configQueries.setConfig(key, value);
+    configQueries.setConfig(key, value)
 }

@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.secretsGradle)
+    alias(libs.plugins.kotlinCompose)
 }
 
 secrets {
@@ -13,22 +13,19 @@ secrets {
 
 android {
     namespace = "com.leondeklerk.wheremybike.android"
-    compileSdk = 35
+    compileSdk = 36
     defaultConfig {
         applicationId = "com.leondeklerk.wheremybike"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 14
-        versionName = "2.0.3"
+        targetSdk = 36
+        versionCode = 15
+        versionName = "2.0.4"
         vectorDrawables {
             useSupportLibrary = true
         }
     }
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packaging {
         resources {
@@ -53,9 +50,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
-    }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_21.toString()
     }
 }
 

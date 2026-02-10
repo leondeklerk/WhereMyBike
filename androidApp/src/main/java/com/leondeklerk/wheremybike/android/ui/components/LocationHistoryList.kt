@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.leondeklerk.wheremybike.ManualLocationEntry
@@ -45,16 +46,26 @@ fun LocationHistoryList(data: List<ManualLocationEntry>, modifier: Modifier = Mo
                 )
             ) {
                 val item = data[index]
-                Row(horizontalArrangement = Arrangement.Center, modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp)) {
-                    Text(text = "(${item.location}) - ${item.startDate.formatDate("MM-dd-yyyy HH:mm")}", style = MaterialTheme.typography.bodyMedium)
+                Row(
+                    horizontalArrangement = Arrangement.Center, modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp)
+                ) {
+                    Text(
+                        text = "(${item.location}) - ${item.startDate.formatDate("MM-dd-yyyy HH:mm")}",
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.MiddleEllipsis
+                    )
                 }
                 Spacer(Modifier.height(8.dp))
                 Row(
                     Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 8.dp), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+                        .padding(bottom = 8.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Icon(
                         Icons.Default.WarningAmber,
                         contentDescription = "Expired",
@@ -62,7 +73,10 @@ fun LocationHistoryList(data: List<ManualLocationEntry>, modifier: Modifier = Mo
                             .padding(end = 8.dp)
                             .size(18.dp),
                     )
-                    Text(text = item.expiredDate.formatDate("MM-dd-yyyy HH:mm"), style = MaterialTheme.typography.bodyMedium)
+                    Text(
+                        text = item.expiredDate.formatDate("MM-dd-yyyy HH:mm"),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
                 }
             }
         }

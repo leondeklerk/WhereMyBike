@@ -71,7 +71,7 @@ fun MapsScreen(modifier: Modifier = Modifier, viewModel: MapsViewModel = viewMod
     val currentLocation = if (state.lat != null && state.lon != null) {
         LatLng(state.lat!!, state.lon!!)
     } else {
-        GetCurrentLocation()
+        getCurrentLocation()
     }
 
     if (!locationPermission.status.isGranted) {
@@ -124,7 +124,7 @@ fun MapsScreen(modifier: Modifier = Modifier, viewModel: MapsViewModel = viewMod
                         startActivity(context, intent, null)
 
                     }) {
-                    Text(stringResource(R.string.ok), style = TextStyle(color = Color.Black))
+                    Text(stringResource(android.R.string.ok), style = TextStyle(color = Color.Black))
                 }
             },
             dismissButton = {
@@ -175,9 +175,10 @@ fun MapsView(
             )
         ) {
             if (hasMarker && currentLocation != null) {
+                val markerState =
+                    remember(currentLocation) { MarkerState(position = currentLocation) }
                 Marker(
-
-                    state = MarkerState(position = currentLocation),
+                    state = markerState,
                 )
             }
         }
@@ -213,16 +214,23 @@ fun PreviewMapsScreen() {
 
 @Composable
 fun SaveLocationButton(modifier: Modifier = Modifier, onSaveLocation: (value: String) -> Unit) {
+    val context = LocalContext.current
     val fusedLocationClient: FusedLocationProviderClient =
-        LocationServices.getFusedLocationProviderClient(LocalContext.current)
+        LocationServices.getFusedLocationProviderClient(context)
     Button(
         onClick = {
-            fusedLocationClient.lastLocation
-                .addOnSuccessListener { location: Location? ->
-                    location?.let {
-                        onSaveLocation("${location.latitude},${location.longitude}")
+            if (ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                fusedLocationClient.lastLocation
+                    .addOnSuccessListener { location: Location? ->
+                        location?.let {
+                            onSaveLocation("${location.latitude},${location.longitude}")
+                        }
                     }
-                }
+            }
         },
         modifier
     ) {
@@ -231,7 +239,7 @@ fun SaveLocationButton(modifier: Modifier = Modifier, onSaveLocation: (value: St
 }
 
 @Composable
-fun GetCurrentLocation(): LatLng? {
+fun getCurrentLocation(): LatLng? {
     var currentLocation by remember { mutableStateOf<LatLng?>(null) }
     val context = LocalContext.current
     val fusedLocationProviderClient =
