@@ -1,15 +1,14 @@
 [versions]
 accompanistPermissions = "0.37.3"
-agp = "9.0.0"
+agp = "9.0.1"
 featureDeliveryKtx = "2.1.0"
 kmpViewmodel = "0.8.0"
 kotlin = "2.3.10"
-compose = "1.10.2"
+compose = "1.10.3"
 compose-material3 = "1.4.0"
-androidx-activityCompose = "1.12.3"
-kottage = "1.11.0"
+androidx-activityCompose = "1.12.4"
 lifecycle-runtime-ktx = "2.10.0"
-compose-bom = "2026.01.01"
+compose-bom = "2026.02.00"
 navigation = "2.9.7"
 material-icons = "1.7.8"
 kotlinx-datetime = "0.6.1"
@@ -18,7 +17,7 @@ play-services-maps = "20.0.0"
 sqldelight = "2.2.1"
 secrets = "2.0.1"
 playServicesLocation = "21.3.0"
-uiTextGoogleFonts = "1.10.2"
+uiTextGoogleFonts = "1.10.3"
 
 
 [libraries]
