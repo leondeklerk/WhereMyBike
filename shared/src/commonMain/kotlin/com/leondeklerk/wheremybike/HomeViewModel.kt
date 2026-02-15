@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTime::class)
+
 package com.leondeklerk.wheremybike
 
 import androidx.compose.runtime.getValue
@@ -11,11 +13,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import kotlinx.datetime.DateTimeUnit
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
+import kotlin.time.ExperimentalTime
 
 data class HomeUiState(
     val manualLocation: ManualLocationEntry? = null,

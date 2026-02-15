@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.leondeklerk.wheremybike.ManualLocationEntry
 import com.leondeklerk.wheremybike.android.R
 import com.leondeklerk.wheremybike.formatDate
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 
 @Composable
 fun TitleCardContent(expired: Boolean, location: ManualLocationEntry?) {

@@ -1,9 +1,12 @@
+@file:OptIn(ExperimentalTime::class)
+
 package com.leondeklerk.wheremybike
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.datetime.toNSDate
 import platform.Foundation.NSDateFormatter
 import platform.Foundation.timeIntervalSince1970
+import kotlin.time.ExperimentalTime
 
 actual fun Instant.formatDate(pattern: String, defValue: String): String {
     return try {

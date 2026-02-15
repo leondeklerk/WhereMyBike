@@ -1,8 +1,11 @@
+@file:OptIn(ExperimentalTime::class)
+
 package com.leondeklerk.wheremybike
 
 import app.cash.sqldelight.db.SqlDriver
 import com.leondeklerk.wheremybike.shared.db.Database
-import kotlinx.datetime.Instant
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 expect class DriverFactory {
     fun createDriver(): SqlDriver

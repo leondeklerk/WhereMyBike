@@ -1,6 +1,9 @@
+@file:OptIn(ExperimentalTime::class)
+
 package com.leondeklerk.wheremybike
 
-import kotlinx.datetime.Instant
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 expect fun Instant.formatDate(pattern: String, defValue: String = ""): String
 
