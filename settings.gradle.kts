@@ -17,6 +17,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Fietslocatie"
+rootProject.name = "WhereMyBike"
 include(":androidApp")
-include(":shared")
+include(":composeApp")

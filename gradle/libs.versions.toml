@@ -1,62 +1,82 @@
 [versions]
-accompanistPermissions = "0.37.3"
+# Core
 agp = "9.0.1"
-featureDeliveryKtx = "2.1.0"
-kmpViewmodel = "0.8.0"
 kotlin = "2.3.10"
-compose = "1.10.3"
-compose-material3 = "1.4.0"
+composeMultiplatform = "1.10.1"
+kotlinx-serialization = "1.7.3"
+
+# AndroidX
 androidx-activityCompose = "1.12.4"
-lifecycle-runtime-ktx = "2.10.0"
-compose-bom = "2026.02.00"
-navigation = "2.9.7"
-material-icons = "1.7.8"
+lifecycle = "2.9.0"
+
+# JetBrains KMP Libraries
+navigationCompose = "2.8.0-alpha12"
 kotlinx-datetime = "0.7.1"
+kotlinx-coroutines = "1.9.0"
+
+# Database
+sqldelight = "2.2.1"
+
+# Dependency Injection
+koin = "4.0.0"
+
+# Android specific
+accompanistPermissions = "0.37.3"
 maps-compose = "8.1.0"
 play-services-maps = "20.0.0"
-sqldelight = "2.2.1"
-secrets = "2.0.1"
 playServicesLocation = "21.3.0"
-uiTextGoogleFonts = "1.10.3"
+secrets = "2.0.1"
+featureDeliveryKtx = "2.1.0"
+coreKtx = "1.17.0"
+coreSplashscreen = "1.0.1"
 
 
 [libraries]
-accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
-feature-delivery-ktx = { module = "com.google.android.play:feature-delivery-ktx", version.ref = "featureDeliveryKtx" }
-kmp-viewmodel = { module = "io.github.hoc081098:kmp-viewmodel-compose", version.ref = "kmpViewmodel" }
+# Kotlin Test
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+
+# JetBrains Lifecycle (Multiplatform)
+lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
+
+# JetBrains Navigation (Multiplatform)
+navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+
+# KotlinX
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+
+# SQLDelight
+sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
+sqldelight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
+
+# Koin DI
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
+koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
+
+# Android specific
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-navigation-fragment = { group = "androidx.navigation", name= "navigation-fragment", version.ref = "navigation"}
-navigation-ui = { group = "androidx.navigation", name= "navigation-ui", version.ref = "navigation"}
-navigation-fragment-ktx = { group = "androidx.navigation", name= "navigation-fragment-ktx", version.ref = "navigation"}
-navigation-ui-ktx = { group = "androidx.navigation", name= "navigation-ui-ktx", version.ref = "navigation"}
-navigation-dynamic-features-fragment = { group = "androidx.navigation", name= "navigation-dynamic-features-fragment", version.ref = "navigation"}
-navigation-testing = { group = "androidx.navigation", name= "navigation-testing", version.ref = "navigation"}
-navigation-compose = { group = "androidx.navigation", name= "navigation-compose", version.ref = "navigation"}
-material-icons-core = { group = "androidx.compose.material", name="material-icons-core", version.ref="material-icons"}
-material-icons-extended = { group = "androidx.compose.material", name="material-icons-extended", version.ref="material-icons"}
-kotinx-datetime = { group = "org.jetbrains.kotlinx", name="kotlinx-datetime", version.ref="kotlinx-datetime"}
-maps-compose = { group = "com.google.maps.android", name="maps-compose", version.ref="maps-compose"}
-play-services-maps = { group = "com.google.android.gms", name="play-services-maps", version.ref="play-services-maps"}
-play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
-androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
+maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "maps-compose" }
+play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "play-services-maps" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
+feature-delivery-ktx = { module = "com.google.android.play:feature-delivery-ktx", version.ref = "featureDeliveryKtx" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 androidKmpLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 secretsGradle = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 kotlinCompose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
