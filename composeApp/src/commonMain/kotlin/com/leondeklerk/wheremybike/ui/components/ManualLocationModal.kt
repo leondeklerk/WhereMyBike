@@ -46,7 +46,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.leondeklerk.wheremybike.resources.Res
@@ -96,10 +95,9 @@ fun ManualLocationModal(
     ) {
         Column(
             Modifier
+                .fillMaxSize()
                 .imePadding()
-                .verticalScroll(rememberScrollState())
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             val focusRequester = remember { FocusRequester() }
             var showDatePicker by remember { mutableStateOf(false) }
@@ -119,103 +117,110 @@ fun ManualLocationModal(
                 focusRequester.requestFocus()
             }
 
-            TextFieldRow(
-                value = stalling,
-                onValueChange = onStallingChange,
-                label = stringResource(Res.string.stalling),
-                modifier = Modifier.focusRequester(focusRequester),
-                isError = stallingError != null,
-                errorMessage = resolveErrorMessage(stallingError)
-            )
-
-            TextFieldRow(
-                value = rij,
-                onValueChange = onRijChange,
-                label = stringResource(Res.string.rij),
-                isError = rijError != null,
-                errorMessage = resolveErrorMessage(rijError)
-            )
-
-            TextFieldRow(
-                value = nummer,
-                onValueChange = onNummerChange,
-                label = stringResource(Res.string.nummer),
-                imeAction = ImeAction.Done,
-                isError = nummerError != null,
-                errorMessage = resolveErrorMessage(nummerError)
-            )
-
-            // Date picker field
-            var expiredDateString by remember {
-                mutableStateOf(expiredDate.formatDate("dd-MM-yyyy"))
-            }
-
-            Column {
-                Text(
-                    stringResource(Res.string.expiration_date),
-                    modifier = Modifier.padding(bottom = 4.dp)
+            Column(
+                Modifier
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                TextFieldRow(
+                    value = stalling,
+                    onValueChange = onStallingChange,
+                    label = stringResource(Res.string.stalling),
+                    modifier = Modifier.focusRequester(focusRequester),
+                    isError = stallingError != null,
+                    errorMessage = resolveErrorMessage(stallingError)
                 )
 
-                OutlinedTextField(
-                    value = expiredDateString,
-                    onValueChange = { },
-                    singleLine = true,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable(onClick = { showDatePicker = true }),
-                    trailingIcon = {
-                        Icon(
-                            Icons.Default.EditCalendar,
-                            contentDescription = stringResource(Res.string.select_expire_date),
-                            modifier = Modifier.size(24.dp)
-                        )
-                    },
-                    enabled = false,
-                    colors = OutlinedTextFieldDefaults.colors(
-                        disabledTextColor = MaterialTheme.colorScheme.onSurface,
-                        disabledContainerColor = Color.Transparent,
-                        disabledBorderColor = MaterialTheme.colorScheme.outline,
-                        disabledTrailingIconColor = MaterialTheme.colorScheme.onSurface,
+                TextFieldRow(
+                    value = rij,
+                    onValueChange = onRijChange,
+                    label = stringResource(Res.string.rij),
+                    isError = rijError != null,
+                    errorMessage = resolveErrorMessage(rijError)
+                )
+
+                TextFieldRow(
+                    value = nummer,
+                    onValueChange = onNummerChange,
+                    label = stringResource(Res.string.nummer),
+                    imeAction = ImeAction.Done,
+                    isError = nummerError != null,
+                    errorMessage = resolveErrorMessage(nummerError)
+                )
+
+                // Date picker field
+                var expiredDateString by remember {
+                    mutableStateOf(expiredDate.formatDate("dd-MM-yyyy"))
+                }
+
+                Column {
+                    Text(
+                        stringResource(Res.string.expiration_date),
+                        modifier = Modifier.padding(bottom = 4.dp)
                     )
-                )
-            }
 
-            if (showDatePicker) {
-                val datePickerState = rememberDatePickerState(
-                    initialSelectedDateMillis = expiredDate.toEpochMilliseconds(),
-                    selectableDates = object : SelectableDates {
-                        override fun isSelectableDate(utcTimeMillis: Long): Boolean {
-                            return utcTimeMillis >= Clock.System.now().toEpochMilliseconds()
-                        }
-                    }
-                )
+                    OutlinedTextField(
+                        value = expiredDateString,
+                        onValueChange = { },
+                        singleLine = true,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable(onClick = { showDatePicker = true }),
+                        trailingIcon = {
+                            Icon(
+                                Icons.Default.EditCalendar,
+                                contentDescription = stringResource(Res.string.select_expire_date),
+                                modifier = Modifier.size(24.dp)
+                            )
+                        },
+                        enabled = false,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            disabledTextColor = MaterialTheme.colorScheme.onSurface,
+                            disabledContainerColor = Color.Transparent,
+                            disabledBorderColor = MaterialTheme.colorScheme.outline,
+                            disabledTrailingIconColor = MaterialTheme.colorScheme.onSurface,
+                        )
+                    )
+                }
 
-                DatePickerDialog(
-                    onDismissRequest = { showDatePicker = false },
-                    confirmButton = {
-                        TextButton(onClick = {
-                            datePickerState.selectedDateMillis?.let {
-                                val newDate = Instant.fromEpochMilliseconds(it)
-                                onExpiredDateChange(newDate)
-                                expiredDateString = newDate.formatDate("dd-MM-yyyy")
+                if (showDatePicker) {
+                    val datePickerState = rememberDatePickerState(
+                        initialSelectedDateMillis = expiredDate.toEpochMilliseconds(),
+                        selectableDates = object : SelectableDates {
+                            override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+                                return utcTimeMillis >= Clock.System.now().toEpochMilliseconds()
                             }
-                            showDatePicker = false
-                        }) {
-                            Text("OK")
                         }
-                    },
-                    dismissButton = {
-                        TextButton(onClick = { showDatePicker = false }) {
-                            Text(stringResource(Res.string.cancel))
+                    )
+
+                    DatePickerDialog(
+                        onDismissRequest = { showDatePicker = false },
+                        confirmButton = {
+                            TextButton(onClick = {
+                                datePickerState.selectedDateMillis?.let {
+                                    val newDate = Instant.fromEpochMilliseconds(it)
+                                    onExpiredDateChange(newDate)
+                                    expiredDateString = newDate.formatDate("dd-MM-yyyy")
+                                }
+                                showDatePicker = false
+                            }) {
+                                Text("OK")
+                            }
+                        },
+                        dismissButton = {
+                            TextButton(onClick = { showDatePicker = false }) {
+                                Text(stringResource(Res.string.cancel))
+                            }
                         }
+                    ) {
+                        DatePicker(state = datePickerState)
                     }
-                ) {
-                    DatePicker(state = datePickerState)
                 }
             }
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Button(onClick = onDismissRequest) {

@@ -13,5 +13,7 @@ secrets.properties
 release.properties
 **/*.png
 .png
+**/*.webp
+.webp
 androidApp/release/**
 .kotlin

@@ -3,11 +3,11 @@
 package com.leondeklerk.wheremybike.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,8 +26,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.leondeklerk.wheremybike.data.model.BikeLocation
 import com.leondeklerk.wheremybike.resources.Res
-import com.leondeklerk.wheremybike.resources.expired
 import com.leondeklerk.wheremybike.resources.expires_on
+import com.leondeklerk.wheremybike.resources.no_location_history
 import com.leondeklerk.wheremybike.resources.start_time
 import com.leondeklerk.wheremybike.util.formatDate
 import org.jetbrains.compose.resources.stringResource
@@ -38,73 +38,88 @@ fun LocationHistoryList(
     data: List<BikeLocation>,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier = modifier.fillMaxWidth()) {
+    if (data.isEmpty()) {
+        Box(
+            modifier = modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = stringResource(Res.string.no_location_history),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+        return
+    }
+
+    LazyColumn(
+        modifier = modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(bottom = 80.dp)
+    ) {
         items(
             count = data.size,
-            key = { it }
+            key = { data[it].startDate.toEpochMilliseconds() }
         ) { index ->
-            ElevatedCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface
-                )
-            ) {
-                val item = data[index]
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp)
-                ) {
-                    Text(
-                        text = item.location,
-                        style = MaterialTheme.typography.bodyLarge,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
-                Spacer(Modifier.height(8.dp))
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Row {
-                        Icon(
-                            Icons.Default.Schedule,
-                            contentDescription = stringResource(Res.string.start_time),
-                            modifier = Modifier
-                                .padding(end = 8.dp)
-                                .size(18.dp),
-                        )
-                        Text(
-                            text = item.expiredDate.formatDate("MM-dd-yyyy HH:mm"),
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
-                    Text(
-                        text = "-",
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(start = 8.dp, end = 8.dp)
-                    )
-                    Row {
-                        Icon(
-                            Icons.Default.WarningAmber,
-                            contentDescription = stringResource(Res.string.expires_on),
-                            modifier = Modifier
-                                .padding(end = 8.dp)
-                                .size(18.dp),
-                        )
-                        Text(
-                            text = item.expiredDate.formatDate("MM-dd-yyyy HH:mm"),
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
+            val item = data[index]
+            val isExpired = item.isExpired
 
+            ElevatedCard(
+                modifier = Modifier.fillMaxWidth(),
+                colors = if (isExpired) CardDefaults.elevatedCardColors(
+                    containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f)
+                ) else CardDefaults.elevatedCardColors()
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        modifier = modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = item.location,
+                            style = MaterialTheme.typography.titleMedium,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        modifier = modifier.fillMaxWidth()
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                Icons.Default.Schedule,
+                                contentDescription = stringResource(Res.string.start_time),
+                                modifier = Modifier.size(16.dp),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                            Text(
+                                text = item.startDate.formatDate("MM-dd-yyyy HH:mm"),
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier.padding(start = 4.dp)
+                            )
+                        }
+                        Text("-", modifier = Modifier.padding(horizontal = 8.dp))
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                Icons.Default.WarningAmber,
+                                contentDescription = stringResource(Res.string.expires_on),
+                                modifier = Modifier.size(16.dp),
+                                tint = if (isExpired) MaterialTheme.colorScheme.error
+                                else MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                            Text(
+                                text = item.expiredDate.formatDate("MM-dd-yyyy HH:mm"),
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier.padding(start = 4.dp),
+                                color = if (isExpired) MaterialTheme.colorScheme.error
+                                else MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+                    }
                 }
             }
         }

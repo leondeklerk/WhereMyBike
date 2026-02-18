@@ -14,7 +14,7 @@
 	<string name="select_expire_date">Select expire date</string>
 	<string name="expiration_date">Expiration date</string>
 	<string name="unit">Unit</string>
-	<string name="stalling">Stalling</string>
+	<string name="stalling">Unit</string>
 	<string name="rij">Row</string>
 	<string name="nummer">Number</string>
 	<string name="start_time">Start time</string>
