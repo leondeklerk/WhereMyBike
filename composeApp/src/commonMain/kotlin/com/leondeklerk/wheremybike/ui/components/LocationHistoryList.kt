@@ -66,9 +66,6 @@ fun LocationHistoryList(
 
             ElevatedCard(
                 modifier = Modifier.fillMaxWidth(),
-                colors = if (isExpired) CardDefaults.elevatedCardColors(
-                    containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f)
-                ) else CardDefaults.elevatedCardColors()
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
@@ -94,7 +91,6 @@ fun LocationHistoryList(
                                 Icons.Default.Schedule,
                                 contentDescription = stringResource(Res.string.start_time),
                                 modifier = Modifier.size(16.dp),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                             Text(
                                 text = item.startDate.formatDate("MM-dd-yyyy HH:mm"),

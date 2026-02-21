@@ -279,7 +279,7 @@ private fun TextFieldRow(
                 .onFocusChanged { focusState ->
                     if (focusState.isFocused) {
                         textFieldValue = textFieldValue.copy(
-                            selection = TextRange(textFieldValue.text.length)
+                            selection = TextRange(0, textFieldValue.text.length)
                         )
                     }
                 }

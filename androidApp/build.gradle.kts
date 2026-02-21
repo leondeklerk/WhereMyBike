@@ -18,8 +18,8 @@ android {
         applicationId = "com.leondeklerk.wheremybike"
         minSdk = 24
         targetSdk = 36
-        versionCode = 16
-        versionName = "2.1.0"
+        versionCode = 18
+        versionName = "2.1.2"
         vectorDrawables {
             useSupportLibrary = true
         }
